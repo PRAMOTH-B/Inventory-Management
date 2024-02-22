@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Control</title>
+  </head>
+  <body>
+    <h1>Inventory Control</h1>
+    <h2>Add your Inventory Items</h2>
+    {%block content%}
+    <form method="POST" action="/add_product">
+      <label>Product Name</label>
+      <input
+        type="text"
+        name="name"
+        placeholder="Product Name"
+        required
+      /><br />
+      <label>Product Type</label>
+      <input type="text" name="type" placeholder="Type" required /><br />
+      <label>Product Count</label>
+      <input
+        type="number"
+        name="count"
+        placeholder="Count"
+        min="0"
+        required
+      /><br />
+      <label>Product Value per Unit</label>
+      <input
+        type="number"
+        name="cost_per_unit"
+        placeholder="Cost"
+        required
+      /><br />
+      <label>Product Selling Price</label>
+      <input
+        type="number"
+        name="selling_price"
+        placeholder="Selling Price"
+        required
+      /><br />
+      <button type="submit">Add product</button>
+    </form>
+
+    <h2>Current Inventory</h2>
+
+    <p>{{products}}</p>
+    {%endblock%}
+  </body>
+</html>
