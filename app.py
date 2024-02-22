@@ -15,7 +15,7 @@ def index():
         cur=mysql.connection.cursor()
         cur.execute("SELECT * FROM products")
         mysql.connection.commit()
-        result=cur.fetchone()
+        result=cur.fetchall()
         cur.close()
         return render_template("ic.html",products=result)
 
