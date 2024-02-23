@@ -46,8 +46,32 @@
     </form>
 
     <h2>Current Inventory</h2>
-
-    <p>{{products}}</p>
-    {%endblock%}
+    <table style="width: 100%; border-collapse: collapse; margin: 20px">
+      <thead>
+        <tr style="background-color: #ffffff; border-bottom: 1px solid #dee2e6">
+          <th style="padding: 10px; border: 1px solid #dee2e6">Product_Name</th>
+          <th style="padding: 10px; border: 1px solid #dee2e6">Product_Type</th>
+          <th style="padding: 10px; border: 1px solid #dee2e6">
+            Product_Count
+          </th>
+          <th style="padding: 10px; border: 1px solid #dee2e6">Cost Price</th>
+          <th style="padding: 10px; border: 1px solid #dee2e6">
+            Selling Price
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prod in products %}
+        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6">
+          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.1}}</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.2}}</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.3}}</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.4}}</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.5}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {%endblock%}
+    </table>
   </body>
 </html>

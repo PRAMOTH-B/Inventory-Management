@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Search Your Inventory</h1>
+    {%block content%}
+    <form method="POST" action="/search_product">
+      <label>Product Name</label>
+      <input
+        type="text"
+        name="search"
+        id="search"
+        placeholder="Search Your Inventory"
+      />
+      <button type="submit" value="Search">Search</button>
+    </form>
+    {% for prod in products %}
+    <div>
+      <ul>
+        <li>Name:{{prod.1}}</li>
+        <li>Type:{{prod.2}}</li>
+        <li>Currently Available:{{prod.3}}</li>
+        <li>Cost Price:{{prod.4}}</li>
+        <li>Selling Price:{{prod.5}}</li>
+      </ul>
+    </div>
+    {% endfor %} {%endblock%}
+  </body>
+</html>

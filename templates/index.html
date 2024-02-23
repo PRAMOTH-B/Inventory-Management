@@ -88,19 +88,26 @@
     <h1 style="text-align: center">Login to Verify</h1>
     <div class="login-container">
       <div class="login">
-        <label for="uid">User-Id</label
-        ><input type="text" id="uid" placeholder="ID" /><br />
-        <label for="pwd">Password</label
-        ><input type="password" id="pwd" placeholder="password" />
-        <br />
-        <button onclick="authenticate()">Login</button>
+        {%block content%}
+        <form method="POST" action="/authenticate">
+          <label for="uid">User-Id</label
+          ><input type="text" name="uid" id="uid" placeholder="ID" /><br />
+          <label for="pwd">Password</label
+          ><input type="password" name="pwd" id="pwd" placeholder="password" />
+          <br />
+          <button type="submit">Login</button>
+        </form>
       </div>
     </div>
     <footer>
       <p>&copy; 2024 Inventory Center. All Rights Reserved.</p>
       <p>Contact: icenter@gmail.com</p>
     </footer>
-    <script>
+    {% if error==1 %}
+    <div><p>Invalid User_Name Password</p></div>
+    {% endif %} {%endblock%}
+
+    <!--<script>
       function authenticate() {
         var userId = document.getElementById("uid").value;
         var password = document.getElementById("pwd").value;
@@ -114,6 +121,6 @@
           alert("Authentication failed. Please try again.");
         }
       }
-    </script>
+    </script>-->
   </body>
 </html>
