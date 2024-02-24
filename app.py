@@ -31,7 +31,21 @@ def authenticate():
     else:
         # User doesn't exist, show error message
         return render_template('index.html', error=1)
+    
+@app.route("/register")
+def register():
+     return render_template("register.html")
 
+@app.route("/create_account",methods=['POST','GET'])
+def create_account():
+     if request.method=="POST":
+          name=request.form['uid']
+          pwd=request.form['pwd']
+          cur = mysql.connection.cursor()
+          cur.execute("INSERT INTO users(name,password)VALUES(%s,%s)",(name,pwd,))
+          mysql.connection.commit()
+          cur.close()
+          return redirect("/")
 
 
 #add inventory form and current inventory check

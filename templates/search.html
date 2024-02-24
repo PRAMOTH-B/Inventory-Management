@@ -3,31 +3,166 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Search Your Inventory</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background-color: #333;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+
+      .navbar-toggle {
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        overflow-x: hidden;
+        transition: 0.5s;
+      }
+
+      .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .overlay a {
+        padding: 10px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+
+      .overlay a:hover {
+        color: #f1f1f1;
+      }
+
+      .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+        cursor: pointer;
+        color: white;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      form {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      button {
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Search Your Inventory</h1>
-    {%block content%}
-    <form method="POST" action="/search_product">
-      <label>Product Name</label>
-      <input
-        type="text"
-        name="search"
-        id="search"
-        placeholder="Search Your Inventory"
-      />
-      <button type="submit" value="Search">Search</button>
-    </form>
-    {% for prod in products %}
-    <div>
-      <ul>
-        <li>Name:{{prod.1}}</li>
-        <li>Type:{{prod.2}}</li>
-        <li>Currently Available:{{prod.3}}</li>
-        <li>Cost Price:{{prod.4}}</li>
-        <li>Selling Price:{{prod.5}}</li>
-      </ul>
+    <div class="navbar">
+      <div class="navbar-toggle" onclick="toggleNav()">&#9776;</div>
+      <div class="navbar-brand">Your Logo</div>
     </div>
-    {% endfor %} {%endblock%}
+    <div id="myNav" class="overlay">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()"
+        >&times;</a
+      >
+      <div class="overlay-content">
+        <a href="/">Home</a>
+        <a href="/search">Search Inventory</a>
+        <a href="/index">Add Inventory</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <script>
+      function toggleNav() {
+        var overlay = document.getElementById("myNav");
+        if (overlay.style.width === "100%") {
+          overlay.style.width = "0";
+        } else {
+          overlay.style.width = "100%";
+        }
+      }
+    </script>
+    <div class="container">
+      <h1>Search Your Inventory</h1>
+      {%block content%}
+      <form method="POST" action="/search_product">
+        <label for="search">Product Name</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Search Your Inventory"
+        />
+        <button type="submit">Search</button>
+      </form>
+      <ul>
+        {% for prod in products %}
+        <li>
+          <ul>
+            <li><strong>Name:</strong> {{prod.1}}</li>
+            <li><strong>Type:</strong> {{prod.2}}</li>
+            <li><strong>Currently Available:</strong> {{prod.3}}</li>
+            <li><strong>Cost Price:</strong> {{prod.4}}</li>
+            <li><strong>Selling Price:</strong> {{prod.5}}</li>
+          </ul>
+        </li>
+        {% endfor %}
+      </ul>
+      {%endblock%}
+    </div>
   </body>
 </html>

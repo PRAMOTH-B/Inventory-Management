@@ -5,73 +5,218 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inventory Control</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background-color: #333;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+
+      .navbar-toggle {
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        overflow-x: hidden;
+        transition: 0.5s;
+      }
+
+      .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .overlay a {
+        padding: 10px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+
+      .overlay a:hover {
+        color: #f1f1f1;
+      }
+
+      .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+        cursor: pointer;
+        color: white;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      form {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      button {
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #dee2e6;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+      }
+    </style>
   </head>
   <body>
-    <h1>Inventory Control</h1>
-    <h2>Add your Inventory Items</h2>
-    {%block content%}
-    <form method="POST" action="/add_product">
-      <label>Product Name</label>
-      <input
-        type="text"
-        name="name"
-        placeholder="Product Name"
-        required
-      /><br />
-      <label>Product Type</label>
-      <input type="text" name="type" placeholder="Type" required /><br />
-      <label>Product Count</label>
-      <input
-        type="number"
-        name="count"
-        placeholder="Count"
-        min="0"
-        required
-      /><br />
-      <label>Product Value per Unit</label>
-      <input
-        type="number"
-        name="cost_per_unit"
-        placeholder="Cost"
-        required
-      /><br />
-      <label>Product Selling Price</label>
-      <input
-        type="number"
-        name="selling_price"
-        placeholder="Selling Price"
-        required
-      /><br />
-      <button type="submit">Add product</button>
-    </form>
+    <div class="navbar">
+      <div class="navbar-toggle" onclick="toggleNav()">&#9776;</div>
+      <div class="navbar-brand">Icenter</div>
+    </div>
+    <div id="myNav" class="overlay">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()"
+        >&times;</a
+      >
+      <div class="overlay-content">
+        <a href="/">Home</a>
+        <a href="/search">Search Inventory</a>
+        <a href="/index">Add Inventory</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <script>
+      function toggleNav() {
+        var overlay = document.getElementById("myNav");
+        if (overlay.style.width === "100%") {
+          overlay.style.width = "0";
+        } else {
+          overlay.style.width = "100%";
+        }
+      }
+    </script>
+    <div class="container">
+      <h1>Inventory Control</h1>
+      <h2>Add your Inventory Items</h2>
+      <form method="POST" action="/add_product">
+        <label for="name">Product Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Product Name"
+          required
+        /><br />
+        <label for="type">Product Type</label>
+        <input
+          type="text"
+          id="type"
+          name="type"
+          placeholder="Type"
+          required
+        /><br />
+        <label for="count">Product Count</label>
+        <input
+          type="number"
+          id="count"
+          name="count"
+          placeholder="Count"
+          min="0"
+          required
+        /><br />
+        <label for="cost_per_unit">Product Value per Unit</label>
+        <input
+          type="number"
+          id="cost_per_unit"
+          name="cost_per_unit"
+          placeholder="Cost"
+          min="0"
+          required
+        /><br />
+        <label for="selling_price">Product Selling Price</label>
+        <input
+          type="number"
+          id="selling_price"
+          name="selling_price"
+          placeholder="Selling Price"
+          min="0"
+          required
+        /><br />
+        <button type="submit">Add Product</button>
+      </form>
 
-    <h2>Current Inventory</h2>
-    <table style="width: 100%; border-collapse: collapse; margin: 20px">
-      <thead>
-        <tr style="background-color: #ffffff; border-bottom: 1px solid #dee2e6">
-          <th style="padding: 10px; border: 1px solid #dee2e6">Product_Name</th>
-          <th style="padding: 10px; border: 1px solid #dee2e6">Product_Type</th>
-          <th style="padding: 10px; border: 1px solid #dee2e6">
-            Product_Count
-          </th>
-          <th style="padding: 10px; border: 1px solid #dee2e6">Cost Price</th>
-          <th style="padding: 10px; border: 1px solid #dee2e6">
-            Selling Price
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for prod in products %}
-        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6">
-          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.1}}</td>
-          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.2}}</td>
-          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.3}}</td>
-          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.4}}</td>
-          <td style="padding: 10px; border: 1px solid #dee2e6">{{prod.5}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      {%endblock%}
-    </table>
+      <h2>Current Inventory</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Product Type</th>
+            <th>Product Count</th>
+            <th>Cost Price</th>
+            <th>Selling Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prod in products %}
+          <tr>
+            <td>{{prod.1}}</td>
+            <td>{{prod.2}}</td>
+            <td>{{prod.3}}</td>
+            <td>{{prod.4}}</td>
+            <td>{{prod.5}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>

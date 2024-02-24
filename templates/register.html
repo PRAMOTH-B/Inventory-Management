@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Registration Page</p>
+    <h1 style="text-align: center">Login to Verify</h1>
+    <div class="login-container">
+      <div class="login">
+        {%block content%}
+        <form method="POST" action="/create_account">
+          <label for="uid">User-Id</label
+          ><input type="text" name="uid" id="uid" placeholder="ID" /><br />
+          <label for="pwd">Password</label
+          ><input type="password" name="pwd" id="pwd" placeholder="password" />
+          <br />
+          <button type="submit">Create</button>
+        </form>
+        <a href="/">Already have an Account?</a>
+        {%endblock%}
+      </div>
+    </div>
+  </body>
+</html>
