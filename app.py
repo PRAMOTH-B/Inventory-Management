@@ -10,6 +10,8 @@ app.config['MYSQL_DB'] = 'inventory_db'
 
 mysql = MySQL(app)
 
+user=""
+
 #default landing page
 def default_route():
     return render_template("index.html")
@@ -19,6 +21,7 @@ app.add_url_rule('/', 'default_route', default_route)
 #authenticate the user from the data on database(basic authentication)
 @app.route("/authenticate", methods=['POST'])
 def authenticate():
+    global user
     user = request.form['uid']
     pwd = request.form['pwd']
     cur = mysql.connection.cursor()
@@ -30,29 +33,37 @@ def authenticate():
         return redirect('/index')
     else:
         # User doesn't exist, show error message
-        return render_template('index.html', error=1)
+        return render_template('index.html', error="Wrong Username or Password!!")
     
 @app.route("/register")
 def register():
      return render_template("register.html")
 
+#account creation and also creating table for the particular user's data
 @app.route("/create_account",methods=['POST','GET'])
 def create_account():
      if request.method=="POST":
           name=request.form['uid']
           pwd=request.form['pwd']
           cur = mysql.connection.cursor()
-          cur.execute("INSERT INTO users(name,password)VALUES(%s,%s)",(name,pwd,))
-          mysql.connection.commit()
+          cur.execute("SELECT * FROM users WHERE name=%s", (name,))
+          result = cur.fetchone()
+          if result:
+               return render_template("/register.html",error="User already Exists with same name!")
+          else:
+               cur.execute("INSERT INTO users(name,password)VALUES(%s,%s)",(name,pwd,))
+               cur.execute(f"CREATE TABLE IF NOT EXISTS {name} (name VARCHAR(200), type VARCHAR(200), count INTEGER, cost_per_unit FLOAT, selling_price FLOAT)")
+               mysql.connection.commit()
+               return redirect("/")
           cur.close()
-          return redirect("/")
+          
 
 
 #add inventory form and current inventory check
 @app.route("/index",methods=['POST','GET'])
 def index():
         cur=mysql.connection.cursor()
-        cur.execute("SELECT * FROM products")
+        cur.execute(f"SELECT * FROM {user}")
         mysql.connection.commit()
         result=cur.fetchall()
         cur.close()
@@ -70,7 +81,7 @@ def add_product():
         selling_price = request.form['selling_price']
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO products (name, type, count, cost_per_unit, selling_price) VALUES (%s, %s, %s, %s, %s)", (name, type, count, cost_per_unit, selling_price))
+        cur.execute(f"INSERT INTO {user} (name, type, count, cost_per_unit, selling_price) VALUES (%s, %s, %s, %s, %s)", (name, type, count, cost_per_unit, selling_price))
         mysql.connection.commit()
         cur.close()
 
@@ -86,7 +97,7 @@ def search_product():
      if request.method == 'POST':
           product=request.form['search']
           cur=mysql.connection.cursor()
-          cur.execute("SELECT * FROM PRODUCTS WHERE name=%s",(product,))
+          cur.execute(f"SELECT * FROM {user} WHERE name=%s",(product,))
           mysql.connection.commit()
           result=cur.fetchall()
           cur.close()

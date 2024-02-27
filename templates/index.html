@@ -17,9 +17,11 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
+        background-color: #f9f9f9; /* Light gray background */
+        color: #333; /* Dark text color */
       }
       header {
-        background-color: #006aff; /* Medium blue color */
+        background-color: #333; /* Dark gray background */
         color: white;
         padding: 10px 20px;
         text-align: left;
@@ -60,7 +62,7 @@
       .login {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a box shadow */
         border-radius: 15px;
-        background-color: #f9f9f9; /* Light gray background */
+        background-color: #fff; /* White background */
         color: #333;
         padding: 20px 20px;
         text-align: center;
@@ -70,6 +72,30 @@
       .login input {
         display: block;
         margin-bottom: 10px;
+        color: #333; /* Dark text color */
+      }
+      .login button {
+        background-color: #333; /* Dark gray background */
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .login button:hover {
+        background-color: #555; /* Darker gray on hover */
+      }
+      .login a {
+        color: #006aff; /* Blue link color */
+        text-decoration: none;
+      }
+      .login a:hover {
+        text-decoration: underline;
+      }
+      .error {
+        text-align: center;
+        color: red;
+        padding: auto;
       }
     </style>
   </head>
@@ -93,35 +119,23 @@
           <label for="uid">User-Id</label
           ><input type="text" name="uid" id="uid" placeholder="ID" /><br />
           <label for="pwd">Password</label
-          ><input type="password" name="pwd" id="pwd" placeholder="password" />
-          <br />
+          ><input
+            type="password"
+            name="pwd"
+            id="pwd"
+            placeholder="password"
+          /><br />
           <button type="submit">Login</button>
         </form>
-        <a href="register">Create a Account</a>
+        <a href="register">Create an Account</a>
       </div>
     </div>
+    {% if error: %}
+    <div class="error"><p>{{error}}</p></div>
+    {% endif %} {%endblock%}
     <footer>
       <p>&copy; 2024 Inventory Center. All Rights Reserved.</p>
       <p>Contact: icenter@gmail.com</p>
     </footer>
-    {% if error==1 %}
-    <div><p>Invalid User_Name Password</p></div>
-    {% endif %} {%endblock%}
-
-    <!--<script>
-      function authenticate() {
-        var userId = document.getElementById("uid").value;
-        var password = document.getElementById("pwd").value;
-
-        // Perform authentication logic here
-        if (userId === "admin" && password === "password") {
-          alert("Authentication successful!");
-          // Redirect to the inventory management page
-          window.location.href = "inventory.html";
-        } else {
-          alert("Authentication failed. Please try again.");
-        }
-      }
-    </script>-->
   </body>
 </html>
