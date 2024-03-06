@@ -4,119 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inventory Control</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-
-      .navbar {
-        background-color: #333;
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-      }
-
-      .navbar-toggle {
-        cursor: pointer;
-        font-size: 20px;
-      }
-
-      .overlay {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        background-color: rgba(0, 0, 0, 0.9);
-        overflow-x: hidden;
-        transition: 0.5s;
-      }
-
-      .overlay-content {
-        position: relative;
-        top: 25%;
-        width: 100%;
-        text-align: center;
-        margin-top: 30px;
-      }
-
-      .overlay a {
-        padding: 10px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        transition: 0.3s;
-      }
-
-      .overlay a:hover {
-        color: #f1f1f1;
-      }
-
-      .overlay .closebtn {
-        position: absolute;
-        top: 20px;
-        right: 45px;
-        font-size: 60px;
-        cursor: pointer;
-        color: white;
-      }
-
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      form {
-        margin-bottom: 20px;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 5px;
-      }
-
-      input[type="text"],
-      input[type="number"],
-      button {
-        padding: 10px;
-        margin-bottom: 10px;
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      button {
-        background-color: #333;
-        color: white;
-        border: none;
-        cursor: pointer;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-      }
-
-      th,
-      td {
-        padding: 10px;
-        border: 1px solid #dee2e6;
-        text-align: left;
-      }
-
-      th {
-        background-color: #f8f9fa;
-        border-bottom: 2px solid #dee2e6;
-      }
-    </style>
+    <title>Inventory Inclusion</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static',filename='ic.css')}}"
+    />
   </head>
   <body>
     <div class="navbar">
@@ -145,7 +38,9 @@
       }
     </script>
     <div class="container">
-      <h1>Inventory Control</h1>
+      <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+        Inventory Inclusion
+      </h1>
       <h2>Add your Inventory Items</h2>
       <form method="POST" action="/add_product">
         <label for="name">Product Name</label>

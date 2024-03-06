@@ -102,6 +102,24 @@ def search_product():
           result=cur.fetchall()
           cur.close()
           return render_template("search.html",products=result)
+     
+@app.route("/dashboard",methods=['GET','POST'])
+def dashboard():
+    cur=mysql.connection.cursor()
+    cur.execute(f"SELECT * FROM {user}")
+    mysql.connection.commit()
+    result=cur.fetchall()
+    cur.close()
+    data_set={}
+    for row in result:
+         cp=row[3]
+         sp=row[4]
+         item=row[0]
+         profit=((sp-cp)/cp)*100
+         data_set=dict(data_set,item=)
+
+         
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
