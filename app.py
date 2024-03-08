@@ -103,6 +103,8 @@ def search_product():
           cur.close()
           return render_template("search.html",products=result)
      
+#displays a dashboard with valuation contents and graphs for visualization
+     
 @app.route("/dashboard",methods=['GET','POST'])
 def dashboard():
     cur=mysql.connection.cursor()
@@ -110,13 +112,33 @@ def dashboard():
     mysql.connection.commit()
     result=cur.fetchall()
     cur.close()
-    data_set={}
+    data_set = {}
     for row in result:
-         cp=row[3]
-         sp=row[4]
-         item=row[0]
-         profit=((sp-cp)/cp)*100
-         data_set=dict(data_set,item=)
+        cp = row[3]
+        sp = row[4]
+        item = row[0]
+        profit = ((sp - cp) / cp) * 100
+        data_set[item] = profit
+
+    return render_template("dashboard.html", data=data_set)
+
+@app.route("/delete",methods=['GET','POST'])
+def delete():
+     if request.method=='POST':
+          item_ids=request.form.getlist('item_ids')
+          cur=mysql.connection.cursor()
+          for item_id in item_ids:
+               cur.execute(f"DELETE FROM {user} WHERE name = %s",(item_id,))
+          mysql.connection.commit()
+          cur.close()
+          return redirect(url_for('delete'))
+     cur=mysql.connection.cursor()
+     cur.execute(f"SELECT * FROM {user}")
+     mysql.connection.commit()
+     result=cur.fetchall()
+     cur.close()
+     return render_template("delete.html",products=result)
+
 
          
     

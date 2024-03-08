@@ -2,22 +2,48 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='styles.css') }}"
-    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <header>
-      <div class="header">Inventory Dashboard</div>
-    </header>
-    <div class="container">
-      <div class="recent"></div>
-      <div class="graph"></div>
-      <div class="valuation"></div>
-    </div>
+    <h1>Dashboard</h1>
+    <canvas id="profitChart"></canvas>
+    <script>
+      var ctx = document.getElementById('profitChart').getContext('2d');
+      var data = {
+          labels: Object.keys({{ data|tojson }}),
+          datasets: [{
+              label: 'Profit Percentage',
+              data: Object.values({{ data|tojson }}),
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      };
+      var options = {
+          scales: {
+              y: {
+                  beginAtZero: true,
+                  title: {
+                      display: true,
+                      text: 'Profit Percentage (%)'
+                  }
+              },
+              x: {
+                  title: {
+                      display: true,
+                      text: 'Items'
+                  }
+              }
+          }
+      };
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: data,
+          options: options
+      });
+    </script>
   </body>
 </html>
