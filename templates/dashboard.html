@@ -6,10 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static',filename='dashboard.css')}}"
+    />
   </head>
   <body>
-    <h1>Dashboard</h1>
-    <canvas id="profitChart"></canvas>
+    {%block content%}
+    <!-- <div class="navbar">Navbar</div> -->
+
+    <div class="header">
+      <h1>Account Dashboard</h1>
+      <a href="/">Home</a>
+      <a href="/search">Search Inventory</a>
+      <a href="/index">Add Inventory</a>
+      <a href="/delete">Delete Inventory</a>
+    </div>
+    <div class="container">
+      <div class="graph_container">
+        <canvas id="profitChart"></canvas>
+      </div>
+      <div class="stats">
+        <h3>Inventory Details</h3>
+        <ul type="none">
+          <li>
+            Inventory Cost:
+            <span style="color: greenyellow">{{icost[0][0]}}</span>
+          </li>
+          <li>
+            Total Quantity:
+            <span style="color: greenyellow">{{quantity[0][0]}}</span>
+          </li>
+          <li>Products: <span style="color: greenyellow">{{prod}}</span></li>
+          <li>
+            Current Inventory Profit:
+            <span style="color: greenyellow">{{profit[0][0]}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="more_av">
+        <h3>Products with More Stock Availability</h3>
+        <ul type="none">
+          {% for row in recent %}
+          <li>{{row.0}}-{{row.2}}</li>
+          {%endfor%}
+        </ul>
+      </div>
+    </div>
     <script>
       var ctx = document.getElementById('profitChart').getContext('2d');
       var data = {
@@ -17,8 +61,8 @@
           datasets: [{
               label: 'Profit Percentage',
               data: Object.values({{ data|tojson }}),
-              backgroundColor: 'rgba(54, 162, 235, 0.2)',
-              borderColor: 'rgba(54, 162, 235, 1)',
+              backgroundColor: 'rgb(108, 99, 255,0.2)',
+              borderColor: 'rgb(240, 248, 255,1)',
               borderWidth: 1
           }]
       };
@@ -45,5 +89,6 @@
           options: options
       });
     </script>
+    {%endblock%}
   </body>
 </html>

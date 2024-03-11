@@ -23,8 +23,8 @@
       <div class="overlay-content">
         <a href="/">Home</a>
         <a href="/search">Search Inventory</a>
-        <a href="/index">Add Inventory</a>
         <a href="/dashboard">Dashboard</a>
+        <a href="/delete">Delete Inventory</a>
       </div>
     </div>
     <script>
@@ -42,52 +42,54 @@
         Inventory Inclusion
       </h1>
       <h2>Add your Inventory Items</h2>
-      <form method="POST" action="/add_product">
-        <label for="name">Product Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Product Name"
-          required
-        /><br />
-        <label for="type">Product Type</label>
-        <input
-          type="text"
-          id="type"
-          name="type"
-          placeholder="Type"
-          required
-        /><br />
-        <label for="count">Product Count</label>
-        <input
-          type="number"
-          id="count"
-          name="count"
-          placeholder="Count"
-          min="0"
-          required
-        /><br />
-        <label for="cost_per_unit">Product Value per Unit</label>
-        <input
-          type="number"
-          id="cost_per_unit"
-          name="cost_per_unit"
-          placeholder="Cost"
-          min="0"
-          required
-        /><br />
-        <label for="selling_price">Product Selling Price</label>
-        <input
-          type="number"
-          id="selling_price"
-          name="selling_price"
-          placeholder="Selling Price"
-          min="0"
-          required
-        /><br />
-        <button type="submit">Add Product</button>
-      </form>
+      <div class="form_container">
+        <form method="POST" action="/add_product">
+          <label for="name">Product Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Product Name"
+            required
+          /><br />
+          <label for="type">Product Type</label>
+          <input
+            type="text"
+            id="type"
+            name="type"
+            placeholder="Type"
+            required
+          /><br />
+          <label for="count">Product Count</label>
+          <input
+            type="number"
+            id="count"
+            name="count"
+            placeholder="Count"
+            min="0"
+            required
+          /><br />
+          <label for="cost_per_unit">Product Value per Unit</label>
+          <input
+            type="number"
+            id="cost_per_unit"
+            name="cost_per_unit"
+            placeholder="Cost"
+            min="0"
+            required
+          /><br />
+          <label for="selling_price">Product Selling Price</label>
+          <input
+            type="number"
+            id="selling_price"
+            name="selling_price"
+            placeholder="Selling Price"
+            min="0"
+            required
+          /><br />
+          <button type="submit">Add Product</button>
+        </form>
+      </div>
 
       <h2>Current Inventory</h2>
       <table>

@@ -121,9 +121,9 @@
       >
       <div class="overlay-content">
         <a href="/">Home</a>
-        <a href="/search">Search Inventory</a>
         <a href="/index">Add Inventory</a>
         <a href="/dashboard">Dashboard</a>
+        <a href="/search">Search Inventory</a>
       </div>
     </div>
     <script>
@@ -149,6 +149,7 @@
         />
         <button type="submit">Search</button>
       </form>
+      {%if products: %}
       <ul>
         {% for prod in products %}
         <li>
@@ -162,7 +163,9 @@
         </li>
         {% endfor %}
       </ul>
-      {%endblock%}
+      {% else %}
+      <p class="noresult">No Results Found</p>
+      {% endif %} {%endblock%}
     </div>
   </body>
 </html>

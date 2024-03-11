@@ -111,7 +111,7 @@ def dashboard():
     cur.execute(f"SELECT * FROM {user}")
     mysql.connection.commit()
     result=cur.fetchall()
-    cur.close()
+#     cur.close()
     data_set = {}
     for row in result:
         cp = row[3]
@@ -119,8 +119,16 @@ def dashboard():
         item = row[0]
         profit = ((sp - cp) / cp) * 100
         data_set[item] = profit
-
-    return render_template("dashboard.html", data=data_set)
+    cur.execute(f"SELECT SUM(count * cost_per_unit) AS total_cost FROM {user}")
+    icost=cur.fetchall()
+    cur.execute(f"SELECT SUM(count) FROM {user}")
+    quantity=cur.fetchall()
+    cur.execute(f"SELECT SUM(count * selling_price - count * cost_per_unit) AS profit FROM {user}")
+    profit=cur.fetchall()
+    prod=len(data_set)
+    cur.execute(f"SELECT * FROM {user} ORDER BY count DESC LIMIT 5")
+    recent=cur.fetchall()
+    return render_template("dashboard.html", data=data_set,icost=icost,quantity=quantity,profit=profit,prod=prod,recent=recent)
 
 @app.route("/delete",methods=['GET','POST'])
 def delete():
