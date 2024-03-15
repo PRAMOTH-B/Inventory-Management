@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -30,7 +31,7 @@ def authenticate():
     cur.close()
     if result:
         # User exists, redirect to content page
-        return redirect('/index')
+        return redirect('/dashboard')
     else:
         # User doesn't exist, show error message
         return render_template('index.html', error="Wrong Username or Password!!")
@@ -52,7 +53,7 @@ def create_account():
                return render_template("/register.html",error="User already Exists with same name!")
           else:
                cur.execute("INSERT INTO users(name,password)VALUES(%s,%s)",(name,pwd,))
-               cur.execute(f"CREATE TABLE IF NOT EXISTS {name} (name VARCHAR(200), type VARCHAR(200), count INTEGER, cost_per_unit FLOAT, selling_price FLOAT)")
+               cur.execute(f"CREATE TABLE IF NOT EXISTS {name} (name VARCHAR(200), type VARCHAR(200), count INTEGER, cost_per_unit FLOAT, selling_price FLOAT,Date DATE)")
                mysql.connection.commit()
                return redirect("/")
           cur.close()
@@ -81,7 +82,7 @@ def add_product():
         selling_price = request.form['selling_price']
 
         cur = mysql.connection.cursor()
-        cur.execute(f"INSERT INTO {user} (name, type, count, cost_per_unit, selling_price) VALUES (%s, %s, %s, %s, %s)", (name, type, count, cost_per_unit, selling_price))
+        cur.execute(f"INSERT INTO {user} (name, type, count, cost_per_unit, selling_price,date) VALUES (%s, %s, %s, %s, %s ,%s)", (name, type, count, cost_per_unit, selling_price,datetime.now().date()))
         mysql.connection.commit()
         cur.close()
 
@@ -128,6 +129,11 @@ def dashboard():
     prod=len(data_set)
     cur.execute(f"SELECT * FROM {user} ORDER BY count DESC LIMIT 5")
     recent=cur.fetchall()
+#     cur.execute(f"SELECT date, COUNT(*) AS count FROM {user} GROUP BY date")
+#     data=cur.fetchall()
+#     date_counts = {}
+#     for row in data:
+#         date_counts[row[0]] = row[1]
     return render_template("dashboard.html", data=data_set,icost=icost,quantity=quantity,profit=profit,prod=prod,recent=recent)
 
 @app.route("/delete",methods=['GET','POST'])
@@ -147,9 +153,41 @@ def delete():
      cur.close()
      return render_template("delete.html",products=result)
 
-
+tname=""
+@app.route("/update",methods=['POST','GET'])
+def update():
+     result=[]
+     flag=0
+     if request.method=='POST':
+          flag=1
+          global tname
+          product=request.form['search']
+          tname=product
+          cur=mysql.connection.cursor()
+          cur.execute(f"SELECT * FROM {user} WHERE name=%s",(product,))
+          mysql.connection.commit()
+          result=cur.fetchall()
+          cur.close()
+          
+     return render_template("update.html",result=result,flag=flag)
          
-    
+@app.route("/update_product", methods=['POST', 'GET'])
+def update_product():
+    if request.method == 'POST':
+        name = request.form['name']
+        product_type = request.form['type']
+        count = request.form['count']
+        cost_per_unit = request.form['cost_per_unit']
+        selling_price = request.form['selling_price']
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute("UPDATE {} SET name=%s, type=%s, count=%s, cost_per_unit=%s, selling_price=%s WHERE name=%s".format(user), (name, product_type, count, cost_per_unit, selling_price, tname))
+            mysql.connection.commit()
+            cur.close()
+        except Exception as e:
+            # Handle the exception, e.g., log it or show an error message
+            print(f"Error updating product: {e}")
+    return redirect("/update")
 
 if __name__ == '__main__':
     app.run(debug=True)
