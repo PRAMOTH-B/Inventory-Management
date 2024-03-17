@@ -15,12 +15,16 @@ user=""
 
 #default landing page
 def default_route():
-    return render_template("index.html")
+    return render_template("landing_page.html")
 
 app.add_url_rule('/', 'default_route', default_route)
 
+@app.route("/login")
+def login():
+     return render_template("index.html")
+
 #authenticate the user from the data on database(basic authentication)
-@app.route("/authenticate", methods=['POST'])
+@app.route("/authenticate", methods=['POST','GET'])
 def authenticate():
     global user
     user = request.form['uid']

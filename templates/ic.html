@@ -4,17 +4,38 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="{{url_for('static',filename='logo.png')}}"
+      type="image/png"
+      sizes="74x74"
+    />
     <title>Inventory Inclusion</title>
     <link
       rel="stylesheet"
       type="text/css"
       href="{{url_for('static',filename='ic.css')}}"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/28a8996b12.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="navbar">
       <div class="navbar-toggle" onclick="toggleNav()">&#9776;</div>
-      <div class="navbar-brand">Icenter</div>
+      <div class="header">Stock Flow</div>
+      <div class="navbar-brand">
+        <a href="/">
+          <img src="{{url_for('static',filename='icons8-logout-64.png')}}" />
+        </a>
+      </div>
     </div>
     <div id="myNav" class="overlay">
       <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()"
@@ -24,6 +45,7 @@
         <a href="/">Home</a>
         <a href="/search">Search Inventory</a>
         <a href="/dashboard">Dashboard</a>
+        <a href="/update">Update Inventory</a>
         <a href="/delete">Delete Inventory</a>
       </div>
     </div>
@@ -38,82 +60,86 @@
       }
     </script>
     <div class="container">
-      <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
-        Inventory Inclusion
-      </h1>
-      <h2>Add your Inventory Items</h2>
       <div class="form_container">
+        <h2>Stock Inclusion</h2>
         <form method="POST" action="/add_product">
-          <label for="name">Product Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Product Name"
-            required
-          /><br />
-          <label for="type">Product Type</label>
-          <input
-            type="text"
-            id="type"
-            name="type"
-            placeholder="Type"
-            required
-          /><br />
-          <label for="count">Product Count</label>
-          <input
-            type="number"
-            id="count"
-            name="count"
-            placeholder="Count"
-            min="0"
-            required
-          /><br />
-          <label for="cost_per_unit">Product Value per Unit</label>
-          <input
-            type="number"
-            id="cost_per_unit"
-            name="cost_per_unit"
-            placeholder="Cost"
-            min="0"
-            required
-          /><br />
-          <label for="selling_price">Product Selling Price</label>
-          <input
-            type="number"
-            id="selling_price"
-            name="selling_price"
-            placeholder="Selling Price"
-            min="0"
-            required
-          /><br />
-          <button type="submit">Add Product</button>
+          <center>
+            <label for="name">Product Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Product Name"
+              required
+            /><br />
+            <label for="type">Product Type</label>
+            <input
+              type="text"
+              id="type"
+              name="type"
+              placeholder="Type"
+              required
+            /><br />
+            <label for="count">Product Count</label>
+            <input
+              type="number"
+              id="count"
+              name="count"
+              placeholder="Count"
+              min="0"
+              required
+            /><br />
+            <label for="cost_per_unit">Product Value per Unit</label>
+            <input
+              type="number"
+              id="cost_per_unit"
+              name="cost_per_unit"
+              placeholder="Cost"
+              min="0"
+              required
+            /><br />
+            <label for="selling_price">Product Selling Price</label>
+            <input
+              type="number"
+              id="selling_price"
+              name="selling_price"
+              placeholder="Selling Price"
+              min="0"
+              required
+            /><br />
+            <button type="submit">
+              Add Product <i class="fa-solid fa-plus"></i>
+            </button>
+          </center>
         </form>
       </div>
-
-      <h2>Current Inventory</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Product Name</th>
-            <th>Product Type</th>
-            <th>Product Count</th>
-            <th>Cost Price</th>
-            <th>Selling Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for prod in products %}
-          <tr>
-            <td>{{prod.0}}</td>
-            <td>{{prod.1}}</td>
-            <td>{{prod.2}}</td>
-            <td>{{prod.3}}</td>
-            <td>{{prod.4}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="stock">
+        <h2>Current Inventory</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Product Type</th>
+              <th>Product Count</th>
+              <th>Cost Price</th>
+              <th>Selling Price</th>
+              <th>Date of Stock Added</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for prod in products %}
+            <tr>
+              <td>{{prod.0}}</td>
+              <td>{{prod.1}}</td>
+              <td>{{prod.2}}</td>
+              <td>{{prod.3}}</td>
+              <td>{{prod.4}}</td>
+              <td>{{prod.5}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </body>
 </html>

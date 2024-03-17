@@ -3,128 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="{{url_for('static',filename='logo.png')}}"
+      type="image/png"
+      sizes="74x74"
+    />
     <title>Delete</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-
-      .navbar {
-        background-color: rgb(108, 99, 255);
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-      }
-
-      .navbar-toggle {
-        cursor: pointer;
-        font-size: 20px;
-      }
-
-      .overlay {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        background-color: rgba(0, 0, 0, 0.9);
-        overflow-x: hidden;
-        transition: 0.5s;
-      }
-
-      .overlay-content {
-        position: relative;
-        top: 25%;
-        width: 100%;
-        text-align: center;
-        margin-top: 30px;
-      }
-
-      .overlay a {
-        padding: 10px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        transition: 0.3s;
-      }
-
-      .overlay a:hover {
-        color: #f1f1f1;
-      }
-
-      .overlay .closebtn {
-        position: absolute;
-        top: 20px;
-        right: 45px;
-        font-size: 60px;
-        cursor: pointer;
-        color: white;
-      }
-      .delete-button {
-        background-color: #dc3545; /* Red color for delete button */
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      .delete-button i {
-        margin-right: 5px; /* Add some space between the icon and the text */
-      }
-      .list_item li {
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        background-color: aliceblue;
-        width: 90%;
-        color: #f1f1f1;
-        border-radius: 7px;
-        margin-bottom: 5px;
-      }
-      .list_item li:hover{
-        background-color: rgb(201, 198, 255);
-      }
-      .checkbox {
-        transform: scale(1.5); /* Increase the size of the checkbox */
-        margin-right: 10px;
-      }
-      .product-details {
-        flex-grow: 1;
-      }
-
-      .product-details p {
-        margin: 0;
-        padding-left: 10px; /* Adjust the padding as needed */
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='delete.css')}}">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   </head>
   <body>
-    <form method="POST" action="/delete">
       <div class="navbar">
         <div class="navbar-toggle" onclick="toggleNav()">&#9776;</div>
-        <div
-          style="
-            font-family: Tahoma, sans-serif;
-            font-weight: bold;
-            font-style: italic;
-          "
-        >
-          Delete Your Inventory Items
+        <div class="header">
+          Stock Flow
         </div>
-        <button type="submit" class="delete-button">
-          <i class="fas fa-trash-alt"></i> Delete
-        </button>
+        <div class="navbar-brand">
+          <a href="/">
+            <img src="{{url_for('static',filename='icons8-logout-64.png')}}" alt="img" />
+          </a>
+        </div>
       </div>
       <div id="myNav" class="overlay">
         <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()"
@@ -135,6 +40,7 @@
           <a href="/search">Search Inventory</a>
           <a href="/index">Add Inventory</a>
           <a href="/dashboard">Dashboard</a>
+          <a href="/update">Update Inventory</a>
         </div>
       </div>
       <script>
@@ -147,6 +53,13 @@
           }
         }
       </script>
+    <form method="POST" action="/delete">
+      <div class="lst_header">
+        <div class="content">Select to Delete Your Products in Stock</div>
+      <button type="submit" class="delete-button">
+        <i class="fas fa-trash-alt"></i> Delete
+      </button>
+      </div>
       {% block content %}
       <ul type="none" class="list_item">
         {% for item in products %}
@@ -154,9 +67,10 @@
           <input type="checkbox" class="checkbox" value="{{item.0}}" name="item_ids" />
           <div class="product-details">
             <p style="color: black">{{item.0}}</p>
-            <p style="color: #818181">Product Type:{{item.1}}</p>
-            <p style="color: #818181">Current Quantity:{{item.2}}</p>
+            <p style="color: #818181">Product Type: {{item.1}}</p>
+            <p style="color: #818181">Current Quantity: {{item.2}}</p>
             <p style="color: greenyellow;">&#8377 <span style="color: rgb(0, 0, 0); display: inline;">{{item.3}}</span></p>
+            <p style="color: #818181">Date of Stock Added: {{item.5}}</p>
             
           </div>
         </li>

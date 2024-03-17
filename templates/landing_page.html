@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Flow</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static',filename='landing.css')}}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/28a8996b12.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav>
+      <div>
+        <img src="{{url_for('static',filename='hlogo.png')}}" alt="logo" />
+      </div>
+      <ul type="none">
+        <li><a href="#">Home</a></li>
+        <li><a href="#content">About</a></li>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/login" class="login">Login</a></li>
+      </ul>
+    </nav>
+    <header>
+      <div class="header-content">
+        <h1>Stock Flow</h1>
+        <p>Riding the waves of stock, smoothly flowing with Stock Flow!</p>
+        <a href="/login">
+          <span>Login to Account</span>
+        </a>
+      </div>
+    </header>
+    <section class="container-flex1" id="content">
+      <main>
+        <article>
+          <img
+            src="{{url_for('static',filename='vendor-managed-1024x1024.png')}}"
+            class="post-image"
+            alt="post-image"
+          />
+        </article>
+      </main>
+      <aside>
+        <h1>Why use Stock Flow?</h1>
+        Stock Flow enables businesses to track their inventory levels
+        accurately, ensuring that they have the right products available at the
+        right time to meet customer demand. This not only improves customer
+        satisfaction but also helps businesses avoid overstocking, which can tie
+        up capital and lead to unnecessary costs. Additionally, Stock Flow
+        provides valuable data and analytics that help businesses make informed
+        decisions about purchasing, pricing, and overall inventory strategy.
+        Whether you're a small retailer or a large-scale distributor, Stock Flow
+        is a must-have tool for optimizing inventory management and driving
+        business growth.
+      </aside>
+    </section>
+    <section class="container-flex2">
+      <main>
+        <article>
+          <img
+            src="{{url_for('static',filename='/functions.png')}}"
+            class="post-image"
+            alt="f-image"
+          />
+        </article>
+      </main>
+      <aside>
+        <h1>What can You do with Stock Flow?</h1>
+        Stock Flow provides essential inventory management functionalities,
+        including adding, updating, deleting, and editing inventory items. It
+        also offers analytics for tracking profits, capital invested in
+        inventory, and total stock quantity. These features empower users to
+        maintain accurate stock levels, make informed decisions, and optimize
+        their inventory management processes effectively.
+      </aside>
+    </section>
+    <footer>
+      <div class="about">
+        <h1><span classs="logo-text">Stock Flow</span></h1>
+        <p>Empowering businesses with efficient stock management solutions</p>
+        <div class="contact">
+          <span>
+            <i class="fas fa-phone"></i>
+            +7010794550
+          </span>
+          <span>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:pramoth0208@gmail.com">pramoth0208@gmail.com</a>
+          </span>
+        </div>
+        <div class="socials">
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

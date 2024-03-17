@@ -1,0 +1,139 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: rgb(108, 99, 255);
+  color: white;
+  position: relative;
+  /* justify-content: space-between;
+  align-items: center; */
+  padding: 10px 20px;
+}
+
+.header {
+  position: absolute;
+  top: 2px;
+  left: 50px;
+  margin-right: auto;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: xx-large;
+}
+
+.navbar-brand {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.navbar-toggle {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 10px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  cursor: pointer;
+  color: white;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  /* Red color for delete button */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-button i {
+  margin-right: 5px;
+  /* Add some space between the icon and the text */
+}
+
+.list_item li {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  background-color: aliceblue;
+  width: 90%;
+  color: #f1f1f1;
+  border-radius: 7px;
+  margin-bottom: 5px;
+}
+
+.list_item li:hover {
+  background-color: rgb(201, 198, 255);
+}
+
+.checkbox {
+  transform: scale(1.5);
+  /* Increase the size of the checkbox */
+  margin-right: 10px;
+}
+
+.product-details {
+  flex-grow: 1;
+}
+
+.product-details p {
+  margin: 0;
+  padding-left: 10px;
+  /* Adjust the padding as needed */
+}
+
+a img {
+  height: 40px;
+  width: 40px;
+}
+
+.lst_header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.content {
+  padding-left: 30px;
+}
